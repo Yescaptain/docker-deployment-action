@@ -1,5 +1,6 @@
 #!/bin/sh
 set -eu
+echo "file goes"
 
 execute_ssh(){
   echo "Execute Over SSH: $@"
@@ -72,6 +73,7 @@ esac
 
 SSH_HOST=${INPUT_REMOTE_DOCKER_HOST#*@}
 
+echo "some or orther"
 echo "Registering SSH keys..."
 echo "${HOME} this is the dir"
 
