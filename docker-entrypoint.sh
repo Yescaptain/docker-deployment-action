@@ -98,6 +98,7 @@ if ! [ -z "$INPUT_DOCKER_PRUNE" ] && [ $INPUT_DOCKER_PRUNE = 'true' ] ; then
 fi
 
 if ! [ -z "$INPUT_COPY_STACK_FILE" ] && [ $INPUT_COPY_STACK_FILE = 'true' ] ; then
+  echo "stack file"
   execute_ssh "mkdir -p $INPUT_DEPLOY_PATH/stacks || true"
   FILE_NAME="docker-stack-$(date +%Y%m%d%s).yaml"
 
@@ -111,15 +112,20 @@ if ! [ -z "$INPUT_COPY_STACK_FILE" ] && [ $INPUT_COPY_STACK_FILE = 'true' ] ; th
   execute_ssh "ls -t $INPUT_DEPLOY_PATH/stacks/docker-stack-* 2>/dev/null |  tail -n +$INPUT_KEEP_FILES | xargs rm --  2>/dev/null || true"
 
   if ! [ -z "$INPUT_PULL_IMAGES_FIRST" ] && [ $INPUT_PULL_IMAGES_FIRST = 'true' ] && [ $INPUT_DEPLOYMENT_MODE = 'docker-compose' ] ; then
+  echo "pull first"
     execute_ssh ${DEPLOYMENT_COMMAND} "pull"
   fi
 
   if ! [ -z "$INPUT_PRE_DEPLOYMENT_COMMAND_ARGS" ] && [ $INPUT_DEPLOYMENT_MODE = 'docker-compose' ] ; then
+  echo "execute pre deploy"
     execute_ssh "${DEPLOYMENT_COMMAND}  $INPUT_PRE_DEPLOYMENT_COMMAND_ARGS" 2>&1
   fi
 
   execute_ssh ${DEPLOYMENT_COMMAND} "$INPUT_ARGS" 2>&1
 else
+  echo "host $INPUT_REMOTE_DOCKER_HOST"
+  echo "deploy command ${DEPLOYMENT_COMMAND}"
+  echo "argz ${INPUT_ARGS}"
   echo "Connecting to $INPUT_REMOTE_DOCKER_HOST... Command: ${DEPLOYMENT_COMMAND} ${INPUT_ARGS}"
   ${DEPLOYMENT_COMMAND} ${INPUT_ARGS} 2>&1
 fi
