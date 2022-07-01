@@ -42,6 +42,16 @@ inputs:
   pull_images_first:
     description: Pull docker images before deploying.
     required: false
+  docker_password:
+    description: The docker login password
+    required: false
+  docker_user:
+    description: The docker login user
+    required: false
+  docker_registry:
+    description: The docker login registry
+    required: false
+
 
 runs:
   using: docker
