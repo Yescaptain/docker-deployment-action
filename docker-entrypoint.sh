@@ -73,7 +73,7 @@ esac
 SSH_HOST=${INPUT_REMOTE_DOCKER_HOST#*@}
 
 echo "Registering SSH keys..."
-echo $HOME
+echo "${HOME} this is the dir"
 
 # register the private key with the agent.
 mkdir -p "$HOME/.ssh"
