@@ -10,6 +10,7 @@ LABEL 'com.github.actions.color'='green'
 
 RUN apk --no-cache add openssh-client docker-compose
 
+RUN echo "before entrypoint"
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN echo "somesome"
 
